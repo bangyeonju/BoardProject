@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<head>
+	<title>홈페이지</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
+<script th:inline="javascript">
+
+	$(document).ready(function () {
+		$('#btnWrite').on("click",function(){
+			location.href="/write"
+		});
+	});
+	
+	function detail(bno){
+		location.href="/detail?bno="+bno
+	}	
+	
+
+</script>
+<body>
+	<table border="1">
+		<tr>
+			<td>번호</td>
+			<td>제목</td>
+			<td>작성자</td>
+			<td>등록일</td>
+			<td>조회수</td>
+		</tr>
+		 <tr th:if="${!#lists.isEmpty(lists)}" th:each="list : ${lists}" th:name="${list.bno}" onclick="detail(this.getAttribute('name'))" >
+			<td th:text="${list.bno}" ></td>
+			<td th:text="${list.title}"></td>
+			<td th:text="${list.writer}"></td>
+			<td th:text="${list.regdate}"></td>
+			<td th:text="${list.viewcnt}"></td>
+		</tr >
+		<tr th:unless="${!#lists.isEmpty(lists)}">
+					<td colspan="4">조회된 결과가 없습니다.</td>
+		</tr>
+	</table >
+	<input type="button" id="btnWrite" value="글쓰기"/>
+	
+</body>
+
+</html>

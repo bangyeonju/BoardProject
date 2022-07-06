@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+    <title>JSP Sample Page</title>
+</head>
+    <body>
+ <table>
+  <tr th:each="list : ${lists}">
+	<td th:text="${list}"></td >
+  </tr>
+        
+ </table>
+    </body>
+</html>

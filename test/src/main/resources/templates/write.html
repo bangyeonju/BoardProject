@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<head>
+	<title>홈페이지</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
+<script th:inline="javascript">
+
+	function checkBoard() {
+		let form = $('#insertForm');
+		var writer = $('#writer').val();
+		var title = $('#title').val();
+		var contents = $('#contents').val();
+		alert(contents);
+		debugger;
+		if (writer == "") {
+			alert("작성자를 입력해주세요");
+			return false;
+		}
+		
+		if (title == "") {
+			alert("제목을 입력해주세요");
+			return false;
+		}
+		
+		if (contents == "undefined" || contents == undefined) {
+			alert("내용을 입력해주세요");
+			return false;
+		}
+		form.attr("method","post");
+		form.attr("action","/write.do");
+		form.submit();
+		
+	}
+</script>
+
+<body>
+	<h2>[게시판 글쓰기]</h2>
+	<form id="insertForm">
+		<table border="1">
+			<tr>
+				<td>작성자</td>
+				<td><input type="text" name="writer" id="writer"></td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td><input type="text" name="title" id="title"></td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td><textarea cols="30" rows="5" id="contents" name="contents"></textarea></td>
+			</tr>
+		</table>
+		<input type="button" value="등록" onclick="checkBoard()">
+		<input type="button" value="목록" onclick="location.href='/list'">
+	</form >
+</body>
+
+</html>

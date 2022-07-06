@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<head>
+	<title>상세보기</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
+<script th:inline="javascript">
+	$(document).ready(function () {
+		$('#btnBack').on("click", function () {
+			history.back();
+		});
+	});
+	function detail(bno) {
+		//alert(bno);
+		location.href = "/detail?bno=" + bno;
+	}
+
+	function update(){
+		if(confirm("수정하시겠습니까?")){
+			let frm = $('#frm');
+			frm.attr("method","post");
+			frm.attr("action","/update");
+			frm.submit();
+		} 
+		
+	}
+	
+	function deleteList(bno){
+		if(confirm("삭제하시겠습니까?")){
+			location.href="/delete?bno="+bno;
+		}
+	}
+
+</script>
+<body>
+	<form  id="frm">
+	<table border="1">
+		<tr>
+			<td>작성자</td>
+			
+			<td th:text="${board.writer}">
+			</td>
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td>
+			<input type="hidden" name="bno" th:value="${board.bno}">
+			<input type="hidden" name="writer" th:value="${board.writer}">
+			<input type="hidden" name="regdate" th:value="${board.regdate}">
+			<input type="hidden" name="viewcnt" th:value="${board.viewcnt}">
+			<input type="text" name="title" th:value="${board.title}"></td >
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td><input type="text" name="contents" th:value="${board.contents}"></td >
+			
+		</tr>
+		<tr>
+			<td>등록일</td>
+			<td th:text="${board.regdate}"></td >
+		</tr>
+
+	</table>
+	</form >	
+	<input type="button" id="btnBack" value="목록" />
+	<input type="button" id="btnUpdate" value="수정"  th:onclick="update()"/>
+	<input type="button" id="btnDelete" value="삭제" th:name="${board.bno}" th:onclick="deleteList(this.getAttribute('name'))"/>
+
+</body>
+
+</html>
